@@ -3,604 +3,270 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drawers Setup Guide</title>
+    <title>Drawers Installation Guide</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .container {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 800px;
-            width: 100%;
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #6b2d8f 0%, #8b4db3 100%);
-            color: white;
-            padding: 40px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
-
-        .progress-bar {
-            height: 6px;
-            background: #e0e0e0;
-            position: relative;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #6b2d8f 0%, #8b4db3 100%);
-            transition: width 0.3s ease;
-        }
-
-        .content {
-            padding: 40px;
-            min-height: 400px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 20px;
+            line-height: 1.6;
+            color: #333;
         }
 
         .step {
             display: none;
-            animation: fadeIn 0.5s;
+            padding: 20px 0;
         }
 
         .step.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ddd;
         }
 
-        .step h2 {
-            color: #6b2d8f;
-            font-size: 2em;
-            margin-bottom: 20px;
+        .logo {
+            height: 50px;
+            width: auto;
         }
 
-        .step h3 {
-            color: #444;
-            font-size: 1.4em;
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
-
-        .step p {
-            line-height: 1.8;
-            margin-bottom: 15px;
-            color: #555;
-            font-size: 1.05em;
-        }
-
-        .step ul, .step ol {
-            margin: 15px 0;
-            padding-left: 25px;
-        }
-
-        .step li {
-            margin: 12px 0;
-            line-height: 1.6;
-            color: #555;
-        }
-
-        .step strong {
-            color: #6b2d8f;
+        h1 {
+            font-size: 24px;
             font-weight: 600;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #6b2d8f;
+        }
+
+        ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin: 12px 0;
         }
 
         code {
-            background-color: #f4f4f4;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-            color: #d63384;
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 14px;
         }
 
-        .highlight-box {
-            background: #f8f5fc;
-            border-left: 4px solid #6b2d8f;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 6px;
-        }
-
-        .tip-box {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 6px;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .feature-item {
-            background: #f8f5fc;
-            padding: 15px;
-            border-radius: 8px;
-            border: 2px solid #e8dff5;
-        }
-
-        .feature-item strong {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 1.1em;
-        }
-
-        .controls {
+        .navigation {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 30px 40px;
-            background: #f9f9f9;
-            border-top: 1px solid #e0e0e0;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
         }
 
-        .btn {
-            padding: 14px 32px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.05em;
-            font-weight: 600;
+        button {
+            padding: 10px 20px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            background: white;
             cursor: pointer;
-            transition: all 0.3s;
-            font-family: inherit;
+            border-radius: 4px;
         }
 
-        .btn:disabled {
-            opacity: 0.4;
+        button:hover:not(:disabled) {
+            background: #f5f5f5;
+        }
+
+        button:disabled {
+            opacity: 0.5;
             cursor: not-allowed;
         }
 
-        .btn-prev {
-            background: white;
-            color: #6b2d8f;
-            border: 2px solid #6b2d8f;
-        }
-
-        .btn-prev:hover:not(:disabled) {
-            background: #f8f5fc;
-        }
-
-        .btn-next {
-            background: linear-gradient(135deg, #6b2d8f 0%, #8b4db3 100%);
+        button.primary {
+            background: #6b2d8f;
             color: white;
+            border-color: #6b2d8f;
         }
 
-        .btn-next:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(107, 45, 143, 0.3);
+        button.primary:hover:not(:disabled) {
+            background: #5a2577;
         }
 
-        .step-indicator {
-            color: #666;
-            font-size: 0.95em;
-        }
-
-        .link {
-            color: #6b2d8f;
-            text-decoration: none;
-            font-weight: 500;
-            word-break: break-all;
-        }
-
-        .link:hover {
-            text-decoration: underline;
-        }
-
-        .completion {
+        .step-counter {
             text-align: center;
-            padding: 40px 20px;
+            color: #666;
+            font-size: 14px;
         }
 
-        .completion-icon {
-            font-size: 5em;
-            margin-bottom: 20px;
+        a {
+            color: #6b2d8f;
         }
 
-        .completion h2 {
-            color: #28a745;
-            margin-bottom: 20px;
-        }
-
-        .completion p {
-            font-size: 1.2em;
-            color: #555;
-        }
-
-        @media (max-width: 600px) {
-            .header h1 {
-                font-size: 1.8em;
-            }
-
-            .content {
-                padding: 25px;
-            }
-
-            .controls {
-                padding: 20px 25px;
-            }
-
-            .btn {
-                padding: 12px 24px;
-                font-size: 0.95em;
-            }
+        .note {
+            background: #f9f9f9;
+            border-left: 3px solid #6b2d8f;
+            padding: 10px 15px;
+            margin: 15px 0;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>📁 Drawers Setup Guide</h1>
-            <p>Get started in just a few simple steps</p>
-        </div>
+    <div class="header">
+        <img src="https://i.imgur.com/iIODsNl.png" alt="NYU Logo" class="logo">
+        <h1>Drawers Installation Guide</h1>
+    </div>
 
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
+    <div class="step active" data-step="1">
+        <h2>Step 1: Download the Extension</h2>
+        <ol>
+            <li>Open the <a href="https://drive.google.com/drive/folders/1f3Dh7sDV4UNlOOgJWpt7D_p6eJn6jnZ2?usp=drive_link" target="_blank">Google Drive folder</a></li>
+            <li>Click the Download button</li>
+            <li>Wait for <code>Drawers.zip</code> to download</li>
+        </ol>
+    </div>
 
-        <div class="content">
-            <!-- Step 0: Welcome -->
-            <div class="step active" data-step="0">
-                <h2>Welcome to Drawers!</h2>
-                <p>A powerful bookmarking and resource organization tool designed for educators, researchers, and knowledge workers who need more than traditional browser bookmarks.</p>
-
-                <div class="highlight-box">
-                    <h3 style="margin-top: 0;">What You'll Learn</h3>
-                    <ul>
-                        <li>How to download and install the Drawers extension</li>
-                        <li>How to load it in Google Chrome</li>
-                        <li>How to start organizing your resources</li>
-                        <li>Tips for getting the most out of Drawers</li>
-                    </ul>
-                </div>
-
-                <p style="margin-top: 30px; font-size: 1.1em;"><strong>Time required:</strong> About 5 minutes</p>
-                <p style="font-size: 1.1em;"><strong>What you'll need:</strong> Google Chrome browser</p>
-            </div>
-
-            <!-- Step 1: Download -->
-            <div class="step" data-step="1">
-                <h2>Step 1: Download the Extension</h2>
-
-                <h3>Download from Google Drive</h3>
-                <ol>
-                    <li>Visit the Google Drive folder: <a href="https://drive.google.com/drive/folders/1f3Dh7sDV4UNlOOgJWpt7D_p6eJn6jnZ2?usp=drive_link" class="link" target="_blank">Click here to open</a></li>
-                    <li>Click the <strong>"Download"</strong> button at the top</li>
-                    <li>The folder will download as a <code>.zip</code> file to your Downloads folder</li>
-                </ol>
-
-                <div class="tip-box">
-                    <strong>💡 Tip:</strong> The download might take a moment. You'll see a <code>Drawers.zip</code> file in your Downloads folder when it's complete.
-                </div>
-            </div>
-
-            <!-- Step 2: Extract -->
-            <div class="step" data-step="2">
-                <h2>Step 2: Extract the Files</h2>
-
-                <h3>Unzip the downloaded folder</h3>
-                <p><strong>On Mac:</strong></p>
-                <ol>
-                    <li>Go to your Downloads folder</li>
-                    <li>Double-click the <code>Drawers.zip</code> file</li>
-                    <li>A new <code>Drawers</code> folder will appear</li>
-                </ol>
-
-                <p><strong>On Windows:</strong></p>
-                <ol>
-                    <li>Go to your Downloads folder</li>
-                    <li>Right-click the <code>Drawers.zip</code> file</li>
-                    <li>Select "Extract All..."</li>
-                    <li>Click "Extract"</li>
-                </ol>
-
-                <div class="tip-box">
-                    <strong>💡 Important:</strong> Move the extracted <code>Drawers</code> folder to your <strong>Desktop</strong> or another permanent location. Don't leave it in Downloads where you might accidentally delete it!
-                </div>
-            </div>
-
-            <!-- Step 3: Open Extensions -->
-            <div class="step" data-step="3">
-                <h2>Step 3: Open Chrome Extensions</h2>
-
-                <h3>Access the Extensions page</h3>
-                <p>There are two ways to get there:</p>
-
-                <div class="highlight-box">
-                    <p><strong>Method 1 (Easiest):</strong></p>
-                    <ol>
-                        <li>Open Google Chrome</li>
-                        <li>In the address bar, type: <code>chrome://extensions/</code></li>
-                        <li>Press Enter</li>
-                    </ol>
-                </div>
-
-                <p style="margin-top: 20px;"><strong>Method 2 (Menu):</strong></p>
-                <ol>
-                    <li>Click the three dots (⋮) in the top-right corner of Chrome</li>
-                    <li>Hover over <strong>"More tools"</strong></li>
-                    <li>Click <strong>"Extensions"</strong></li>
-                </ol>
-            </div>
-
-            <!-- Step 4: Developer Mode -->
-            <div class="step" data-step="4">
-                <h2>Step 4: Enable Developer Mode</h2>
-
-                <h3>Turn on Developer Mode</h3>
-                <ol>
-                    <li>Look for the <strong>"Developer mode"</strong> toggle in the top-right corner of the Extensions page</li>
-                    <li>Click the toggle to turn it <strong>ON</strong></li>
-                    <li>The toggle should turn blue when enabled</li>
-                </ol>
-
-                <div class="tip-box">
-                    <strong>💡 Why Developer Mode?</strong> This allows you to load extensions from your computer instead of only from the Chrome Web Store. It's perfectly safe!
-                </div>
-
-                <div class="highlight-box" style="margin-top: 25px;">
-                    <strong>What you'll see:</strong> Once enabled, you'll see new buttons appear: "Load unpacked", "Pack extension", and "Update"
-                </div>
-            </div>
-
-            <!-- Step 5: Load Extension -->
-            <div class="step" data-step="5">
-                <h2>Step 5: Load the Extension</h2>
-
-                <h3>Install Drawers in Chrome</h3>
-                <ol>
-                    <li>Click the <strong>"Load unpacked"</strong> button (it appeared after enabling Developer mode)</li>
-                    <li>A file browser window will open</li>
-                    <li>Navigate to where you saved the <code>Drawers</code> folder (Desktop or wherever you moved it)</li>
-                    <li>Click on the <strong>Drawers folder</strong> to select it</li>
-                    <li>Click <strong>"Select Folder"</strong> (Mac) or <strong>"Select"</strong> (Windows)</li>
-                </ol>
-
-                <div class="tip-box">
-                    <strong>⚠️ Important:</strong> Make sure you select the <strong>Drawers folder itself</strong>, not a file inside it. The folder should contain files like <code>manifest.json</code>, <code>popup.html</code>, and <code>popup.js</code>.
-                </div>
-            </div>
-
-            <!-- Step 6: Verify -->
-            <div class="step" data-step="6">
-                <h2>Step 6: Verify Installation</h2>
-
-                <h3>Check that Drawers is installed</h3>
-                <p>You should see:</p>
-                <ol>
-                    <li>The Drawers extension card appear in your extensions list</li>
-                    <li>The extension should show as "Enabled"</li>
-                    <li>A Drawers icon in your Chrome toolbar (top-right, near the address bar)</li>
-                </ol>
-
-                <div class="highlight-box">
-                    <h3 style="margin-top: 0;">Can't see the icon?</h3>
-                    <ol>
-                        <li>Click the puzzle piece icon (🧩) in your Chrome toolbar</li>
-                        <li>Find "Drawers" in the list</li>
-                        <li>Click the pin icon next to it to keep it visible</li>
-                    </ol>
-                </div>
-
-                <div class="tip-box" style="margin-top: 20px;">
-                    <strong>✅ Success!</strong> If you can see the Drawers extension card on the extensions page, you've successfully installed it!
-                </div>
-            </div>
-
-            <!-- Step 7: First Use -->
-            <div class="step" data-step="7">
-                <h2>Step 7: Start Using Drawers</h2>
-
-                <h3>Create your first drawer</h3>
-                <ol>
-                    <li><strong>Click the Drawers icon</strong> in your Chrome toolbar</li>
-                    <li>The Drawers side panel will open</li>
-                    <li>Click <strong>"+ Add Drawer"</strong></li>
-                    <li>Name your drawer (e.g., "Research Papers", "Teaching Resources", "Project Links")</li>
-                    <li>Click <strong>"Create"</strong></li>
-                </ol>
-
-                <div class="highlight-box">
-                    <h3 style="margin-top: 0;">Add your first card</h3>
-                    <ol>
-                        <li>Navigate to any webpage you want to save</li>
-                        <li>Open Drawers and select your drawer</li>
-                        <li>Click <strong>"+ Add Card"</strong></li>
-                        <li>The card will auto-fill with the page's title, URL, and description</li>
-                        <li>Add tags if you want</li>
-                        <li>Click <strong>"Save"</strong></li>
-                    </ol>
-                </div>
-            </div>
-
-            <!-- Step 8: Features -->
-            <div class="step" data-step="8">
-                <h2>Key Features</h2>
-
-                <p>Here's what you can do with Drawers:</p>
-
-                <div class="feature-grid">
-                    <div class="feature-item">
-                        <strong>📂 Organized Drawers</strong>
-                        <p>Group resources by project, course, or topic</p>
-                    </div>
-                    <div class="feature-item">
-                        <strong>📝 Rich Context</strong>
-                        <p>Add titles, descriptions, and links to each card</p>
-                    </div>
-                    <div class="feature-item">
-                        <strong>🏷️ Flexible Tagging</strong>
-                        <p>Create custom tags and filter cards instantly</p>
-                    </div>
-                    <div class="feature-item">
-                        <strong>🔍 Powerful Search</strong>
-                        <p>Search across all drawers and cards</p>
-                    </div>
-                    <div class="feature-item">
-                        <strong>📤 Easy Sharing</strong>
-                        <p>Export drawers to share with colleagues</p>
-                    </div>
-                    <div class="feature-item">
-                        <strong>📦 Archive</strong>
-                        <p>Archive old drawers to keep workspace clean</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Step 9: Tips -->
-            <div class="step" data-step="9">
-                <h2>Usage Tips</h2>
-
-                <h3>📂 Creating Effective Drawers</h3>
-                <ul>
-                    <li>Create separate drawers for different projects, courses, or topics</li>
-                    <li>Use clear, descriptive names for your drawers</li>
-                    <li>Archive old drawers instead of deleting them to preserve your work</li>
-                </ul>
-
-                <h3>🏷️ Organizing with Tags</h3>
-                <ul>
-                    <li>Create tags for common themes (e.g., "Important", "To Read", "Examples")</li>
-                    <li>Use consistent tag names across drawers for better organization</li>
-                    <li>Apply multiple tags to cards for flexible filtering</li>
-                </ul>
-
-                <h3>📤 Sharing Resources</h3>
-                <ul>
-                    <li>Use the <strong>Download Drawer</strong> option to export collections</li>
-                    <li>Share <code>.drawer</code> files with colleagues via email or shared drives</li>
-                    <li>Upload <code>.drawer</code> files from others to import their collections</li>
-                </ul>
-            </div>
-
-            <!-- Step 10: Completion -->
-            <div class="step" data-step="10">
-                <div class="completion">
-                    <div class="completion-icon">🎉</div>
-                    <h2>You're All Set!</h2>
-                    <p>Drawers is now installed and ready to use.</p>
-
-                    <div class="highlight-box" style="margin-top: 40px; text-align: left;">
-                        <h3 style="margin-top: 0;">What's Next?</h3>
-                        <ul>
-                            <li>Start organizing your bookmarks into drawers</li>
-                            <li>Create custom tags for your workflow</li>
-                            <li>Explore the search feature to find resources quickly</li>
-                            <li>Share your drawers with colleagues</li>
-                        </ul>
-                    </div>
-
-                    <div class="tip-box" style="margin-top: 30px; text-align: left;">
-                        <strong>💡 Pro Tip:</strong> Check out the preloaded "Faculty Resources" and other sample drawers to see examples of how to organize your materials effectively.
-                    </div>
-
-                    <p style="margin-top: 40px; font-size: 1.2em;">
-                        <strong>Need help?</strong> Click the About button in the extension for more information.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="controls">
-            <button class="btn btn-prev" id="prevBtn" onclick="previousStep()">← Previous</button>
-            <div class="step-indicator" id="stepIndicator">Step 1 of 11</div>
-            <button class="btn btn-next" id="nextBtn" onclick="nextStep()">Next →</button>
+    <div class="step" data-step="2">
+        <h2>Step 2: Extract the Files</h2>
+        <ol>
+            <li>Locate <code>Drawers.zip</code> in your Downloads folder</li>
+            <li>Double-click (Mac) or right-click and select "Extract All" (Windows)</li>
+            <li>Move the extracted <code>Drawers</code> folder to your Desktop</li>
+        </ol>
+        <div class="note">
+            <strong>Important:</strong> Don't delete this folder after installation. Chrome needs it to run the extension.
         </div>
     </div>
 
-    <script>
-        let currentStep = 0;
-        const totalSteps = 11; // 0-10
+    <div class="step" data-step="3">
+        <h2>Step 3: Open Chrome Extensions</h2>
+        <ol>
+            <li>Open Google Chrome</li>
+            <li>Type <code>chrome://extensions/</code> in the address bar</li>
+            <li>Press Enter</li>
+        </ol>
+    </div>
 
-        function updateStep() {
-            // Hide all steps
+    <div class="step" data-step="4">
+        <h2>Step 4: Enable Developer Mode</h2>
+        <ol>
+            <li>Find the "Developer mode" toggle in the top-right corner</li>
+            <li>Click to turn it ON (it will turn blue)</li>
+            <li>New buttons will appear: "Load unpacked", "Pack extension", and "Update"</li>
+        </ol>
+    </div>
+
+    <div class="step" data-step="5">
+        <h2>Step 5: Load the Extension</h2>
+        <ol>
+            <li>Click "Load unpacked"</li>
+            <li>Navigate to your Desktop (or wherever you saved the Drawers folder)</li>
+            <li>Select the <code>Drawers</code> folder</li>
+            <li>Click "Select Folder" (Mac) or "Select" (Windows)</li>
+        </ol>
+        <div class="note">
+            <strong>Note:</strong> Select the Drawers folder itself, not a file inside it.
+        </div>
+    </div>
+
+    <div class="step" data-step="6">
+        <h2>Step 6: Pin the Extension</h2>
+        <ol>
+            <li>Look for the Drawers card in your extensions list</li>
+            <li>Click the puzzle piece icon (🧩) in your Chrome toolbar</li>
+            <li>Find "Drawers" and click the pin icon to keep it visible</li>
+        </ol>
+    </div>
+
+    <div class="step" data-step="7">
+        <h2>Step 7: Start Using Drawers</h2>
+        <ol>
+            <li>Click the Drawers icon in your toolbar</li>
+            <li>Click "+ Add Drawer" to create your first drawer</li>
+            <li>Name it and click "Create"</li>
+            <li>Navigate to any webpage and click "+ Add Card" to save it</li>
+        </ol>
+        <div class="note">
+            <strong>Tip:</strong> The URL, title, and description fields will auto-fill from the current page.
+        </div>
+    </div>
+
+    <div class="step" data-step="8">
+        <h2>Setup Complete</h2>
+        <p>Drawers is now installed and ready to use.</p>
+        <p><strong>Quick Reference:</strong></p>
+        <ul>
+            <li>Create drawers to organize resources by topic</li>
+            <li>Add cards to save links with descriptions</li>
+            <li>Use tags to filter and organize cards</li>
+            <li>Search across all drawers to find resources</li>
+            <li>Download/upload drawers to share with colleagues</li>
+        </ul>
+    </div>
+
+    <div class="navigation">
+        <button id="prevBtn" onclick="changeStep(-1)">← Previous</button>
+        <div class="step-counter"><span id="current">1</span> of 8</div>
+        <button id="nextBtn" class="primary" onclick="changeStep(1)">Next →</button>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 8;
+
+        function updateDisplay() {
+            // Update step visibility
             document.querySelectorAll('.step').forEach(step => {
                 step.classList.remove('active');
             });
-
-            // Show current step
             document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
 
-            // Update progress bar
-            const progress = (currentStep / (totalSteps - 1)) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
+            // Update counter
+            document.getElementById('current').textContent = currentStep;
 
-            // Update step indicator
-            document.getElementById('stepIndicator').textContent = `Step ${currentStep + 1} of ${totalSteps}`;
+            // Update buttons
+            document.getElementById('prevBtn').disabled = currentStep === 1;
 
-            // Update button states
-            document.getElementById('prevBtn').disabled = currentStep === 0;
-
-            if (currentStep === totalSteps - 1) {
-                document.getElementById('nextBtn').textContent = '✓ Finish';
-                document.getElementById('nextBtn').style.background = 'linear-gradient(135deg, #28a745 0%, #20c997 100%)';
+            const nextBtn = document.getElementById('nextBtn');
+            if (currentStep === totalSteps) {
+                nextBtn.textContent = 'Finish';
             } else {
-                document.getElementById('nextBtn').textContent = 'Next →';
-                document.getElementById('nextBtn').style.background = 'linear-gradient(135deg, #6b2d8f 0%, #8b4db3 100%)';
+                nextBtn.textContent = 'Next →';
+            }
+        }
+
+        function changeStep(direction) {
+            const newStep = currentStep + direction;
+
+            if (newStep < 1 || newStep > totalSteps) {
+                if (newStep > totalSteps) {
+                    window.close();
+                }
+                return;
             }
 
-            // Scroll to top
+            currentStep = newStep;
+            updateDisplay();
             window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function nextStep() {
-            if (currentStep < totalSteps - 1) {
-                currentStep++;
-                updateStep();
-            } else {
-                // On finish, could redirect or show a message
-                alert('Setup complete! Start using Drawers by clicking its icon in your Chrome toolbar.');
-            }
-        }
-
-        function previousStep() {
-            if (currentStep > 0) {
-                currentStep--;
-                updateStep();
-            }
         }
 
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') nextStep();
-            if (e.key === 'ArrowLeft') previousStep();
+            if (e.key === 'ArrowRight' && currentStep < totalSteps) changeStep(1);
+            if (e.key === 'ArrowLeft' && currentStep > 1) changeStep(-1);
         });
 
-        // Initialize
-        updateStep();
+        updateDisplay();
     </script>
 </body>
 </html>
